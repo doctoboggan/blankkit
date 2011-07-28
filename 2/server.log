@@ -1,0 +1,199 @@
+2011-07-27 21:46:12 [INFO] Starting minecraft server version Beta 1.7.2
+2011-07-27 21:46:12 [INFO] Loading properties
+2011-07-27 21:46:12 [WARNING] server.properties does not exist
+2011-07-27 21:46:12 [INFO] Generating new properties file
+2011-07-27 21:46:12 [INFO] Starting Minecraft server on *:25565
+2011-07-27 21:46:12 [INFO] This server is running Craftbukkit version git-Bukkit-0.0.0-904-g9277096-b953jnks (MC: 1.7.2)
+2011-07-27 21:46:13 [WARNING] Failed to load ban list: java.io.FileNotFoundException: banned-players.txt (No such file or directory)
+2011-07-27 21:46:13 [WARNING] Failed to load ip ban list: java.io.FileNotFoundException: banned-ips.txt (No such file or directory)
+2011-07-27 21:46:13 [WARNING] Failed to load ops: java.io.FileNotFoundException: ops.txt (No such file or directory)
+2011-07-27 21:46:13 [WARNING] Failed to load white-list: java.io.FileNotFoundException: white-list.txt (No such file or directory)
+2011-07-27 21:46:13 [INFO] Preparing level "world"
+2011-07-27 21:46:14 [INFO] Preparing start region for level 0 (Seed: -255966985949221558)
+2011-07-27 21:46:15 [INFO] Preparing spawn area: 4%
+2011-07-27 21:46:16 [INFO] Preparing spawn area: 8%
+2011-07-27 21:46:17 [INFO] Preparing spawn area: 8%
+2011-07-27 21:46:18 [INFO] Preparing spawn area: 12%
+2011-07-27 21:46:19 [INFO] Preparing spawn area: 12%
+2011-07-27 21:46:20 [INFO] Preparing spawn area: 16%
+2011-07-27 21:46:21 [INFO] Preparing spawn area: 20%
+2011-07-27 21:46:22 [INFO] Preparing spawn area: 20%
+2011-07-27 21:46:23 [INFO] Preparing spawn area: 24%
+2011-07-27 21:46:24 [INFO] Preparing spawn area: 28%
+2011-07-27 21:46:25 [INFO] Preparing spawn area: 32%
+2011-07-27 21:46:26 [INFO] Preparing spawn area: 40%
+2011-07-27 21:46:27 [INFO] Preparing spawn area: 48%
+2011-07-27 21:46:28 [INFO] Preparing spawn area: 53%
+2011-07-27 21:46:29 [INFO] Preparing spawn area: 61%
+2011-07-27 21:46:30 [INFO] Preparing spawn area: 69%
+2011-07-27 21:46:31 [INFO] Preparing spawn area: 73%
+2011-07-27 21:46:32 [INFO] Preparing spawn area: 77%
+2011-07-27 21:46:33 [INFO] Preparing spawn area: 81%
+2011-07-27 21:46:34 [INFO] Preparing spawn area: 85%
+2011-07-27 21:46:35 [INFO] Preparing spawn area: 89%
+2011-07-27 21:46:36 [INFO] Preparing spawn area: 93%
+2011-07-27 21:46:37 [INFO] Preparing spawn area: 97%
+2011-07-27 21:46:38 [INFO] Preparing start region for level 1 (Seed: -255966985949221558)
+2011-07-27 21:46:39 [INFO] Preparing spawn area: 4%
+2011-07-27 21:46:42 [INFO] Preparing spawn area: 4%
+2011-07-27 21:46:43 [INFO] Preparing spawn area: 8%
+2011-07-27 21:46:45 [INFO] Preparing spawn area: 8%
+2011-07-27 21:46:46 [INFO] Preparing spawn area: 12%
+2011-07-27 21:46:47 [INFO] Preparing spawn area: 12%
+2011-07-27 21:46:48 [INFO] Preparing spawn area: 16%
+2011-07-27 21:46:50 [INFO] Preparing spawn area: 16%
+2011-07-27 21:46:51 [INFO] Preparing spawn area: 20%
+2011-07-27 21:46:52 [INFO] Preparing spawn area: 28%
+2011-07-27 21:46:54 [INFO] Preparing spawn area: 28%
+2011-07-27 21:46:55 [INFO] Preparing spawn area: 36%
+2011-07-27 21:46:56 [INFO] Preparing spawn area: 36%
+2011-07-27 21:46:57 [INFO] Preparing spawn area: 36%
+2011-07-27 21:46:58 [INFO] Preparing spawn area: 44%
+2011-07-27 21:47:01 [INFO] Preparing spawn area: 48%
+2011-07-27 21:47:02 [INFO] Preparing spawn area: 56%
+2011-07-27 21:47:03 [INFO] Preparing spawn area: 57%
+2011-07-27 21:47:04 [INFO] Preparing spawn area: 61%
+2011-07-27 21:47:05 [INFO] Preparing spawn area: 65%
+2011-07-27 21:47:06 [INFO] Preparing spawn area: 65%
+2011-07-27 21:47:08 [INFO] Preparing spawn area: 69%
+2011-07-27 21:47:09 [INFO] Preparing spawn area: 73%
+2011-07-27 21:47:10 [INFO] Preparing spawn area: 77%
+2011-07-27 21:47:11 [INFO] Preparing spawn area: 77%
+2011-07-27 21:47:13 [INFO] Preparing spawn area: 81%
+2011-07-27 21:47:14 [INFO] Preparing spawn area: 81%
+2011-07-27 21:47:15 [INFO] Preparing spawn area: 85%
+2011-07-27 21:47:16 [INFO] Preparing spawn area: 85%
+2011-07-27 21:47:17 [INFO] Preparing spawn area: 85%
+2011-07-27 21:47:18 [INFO] Preparing spawn area: 89%
+2011-07-27 21:47:19 [INFO] Preparing spawn area: 89%
+2011-07-27 21:47:21 [INFO] Preparing spawn area: 93%
+2011-07-27 21:47:22 [INFO] Preparing spawn area: 93%
+2011-07-27 21:47:23 [INFO] Done (7.029s)! For help, type "help" or "?"
+2011-07-27 22:17:43 [INFO] Unknown console command. Type "help" for help.
+2011-07-27 22:17:43 [INFO] Unknown console command. Type "help" for help.
+2011-07-27 22:17:43 [INFO] Unknown console command. Type "help" for help.
+2011-07-27 22:17:43 [INFO] Unknown console command. Type "help" for help.
+2011-07-27 22:17:43 [INFO] Unknown console command. Type "help" for help.
+2011-07-27 22:17:43 [INFO] Unknown console command. Type "help" for help.
+2011-07-27 22:17:43 [INFO] Unknown console command. Type "help" for help.
+2011-07-27 22:18:36 [SEVERE] null
+java.io.IOException: No such file or directory
+	at java.io.FileInputStream.read(Native Method)
+	at jline.Terminal.readCharacter(Terminal.java:99)
+	at jline.UnixTerminal.readVirtualKey(UnixTerminal.java:128)
+	at jline.ConsoleReader.readVirtualKey(ConsoleReader.java:1453)
+	at jline.ConsoleReader.readBinding(ConsoleReader.java:654)
+	at jline.ConsoleReader.readLine(ConsoleReader.java:494)
+	at net.minecraft.server.ThreadCommandReader.run(ThreadCommandReader.java:23)
+2011-07-27 22:18:36 [INFO] Stopping server
+2011-07-27 22:18:36 [INFO] Saving chunks
+2011-07-27 22:19:00 [INFO] Starting minecraft server version Beta 1.7.2
+2011-07-27 22:19:00 [INFO] Loading properties
+2011-07-27 22:19:00 [INFO] Starting Minecraft server on *:25565
+2011-07-27 22:19:00 [INFO] This server is running Craftbukkit version git-Bukkit-0.0.0-904-g9277096-b953jnks (MC: 1.7.2)
+2011-07-27 22:19:00 [INFO] Preparing level "world"
+2011-07-27 22:19:00 [INFO] Preparing start region for level 0 (Seed: -255966985949221558)
+2011-07-27 22:19:01 [INFO] Preparing start region for level 1 (Seed: -255966985949221558)
+2011-07-27 22:19:01 [INFO] Preparing spawn area: 65%
+2011-07-27 22:19:01 [INFO] Done (0.142s)! For help, type "help" or "?"
+2011-07-27 22:19:31 [INFO] Connected players: 
+2011-07-27 22:19:35 [INFO] Stopping the server..
+2011-07-27 22:19:35 [INFO] Stopping server
+2011-07-27 22:19:35 [INFO] Saving chunks
+2011-07-27 22:19:35 [INFO] Stopping server
+2011-07-27 22:19:35 [INFO] Saving chunks
+2011-07-27 22:20:51 [INFO] Starting minecraft server version Beta 1.7.2
+2011-07-27 22:20:51 [INFO] Loading properties
+2011-07-27 22:20:51 [INFO] Starting Minecraft server on *:25565
+2011-07-27 22:20:51 [INFO] This server is running Craftbukkit version git-Bukkit-0.0.0-904-g9277096-b953jnks (MC: 1.7.2)
+2011-07-27 22:20:51 [INFO] Preparing level "world"
+2011-07-27 22:20:51 [INFO] Preparing start region for level 0 (Seed: -255966985949221558)
+2011-07-27 22:20:52 [INFO] Preparing start region for level 1 (Seed: -255966985949221558)
+2011-07-27 22:20:52 [INFO] Preparing spawn area: 65%
+2011-07-27 22:20:52 [INFO] Done (0.138s)! For help, type "help" or "?"
+2011-07-27 22:20:55 [INFO] [CONSOLE] hey
+2011-07-27 22:21:01 [INFO] [CONSOLE] hey
+2011-07-27 22:21:11 [INFO] [CONSOLE] hey
+2011-07-27 22:21:15 [INFO] Unknown console command. Type "help" for help.
+2011-07-27 22:21:28 [INFO] [CONSOLE] hey
+2011-07-27 22:21:35 [INFO] Unknown console command. Type "help" for help.
+2011-07-27 22:22:39 [INFO] Stopping the server..
+2011-07-27 22:22:39 [INFO] Stopping server
+2011-07-27 22:22:39 [INFO] Saving chunks
+2011-07-27 22:22:42 [INFO] Starting minecraft server version Beta 1.7.2
+2011-07-27 22:22:42 [INFO] Loading properties
+2011-07-27 22:22:42 [INFO] Starting Minecraft server on *:25565
+2011-07-27 22:22:42 [INFO] This server is running Craftbukkit version git-Bukkit-0.0.0-904-g9277096-b953jnks (MC: 1.7.2)
+2011-07-27 22:22:42 [INFO] Preparing level "world"
+2011-07-27 22:22:43 [INFO] Preparing start region for level 0 (Seed: -255966985949221558)
+2011-07-27 22:22:43 [INFO] Preparing start region for level 1 (Seed: -255966985949221558)
+2011-07-27 22:22:44 [INFO] Preparing spawn area: 24%
+2011-07-27 22:22:44 [INFO] Done (0.193s)! For help, type "help" or "?"
+2011-07-27 22:23:06 [INFO] captainmack [/127.0.0.1:64133] logged in with entity id 0 at ([world] -340.5, 70.62000000476837, -312.5)
+2011-07-27 22:23:09 [WARNING] Can't keep up! Did the system time change, or is the server overloaded?
+2011-07-27 22:23:41 [INFO] Stopping the server..
+2011-07-27 22:23:41 [INFO] Stopping server
+2011-07-27 22:23:41 [INFO] Saving chunks
+2011-07-27 22:23:50 [INFO] Starting minecraft server version Beta 1.7.2
+2011-07-27 22:23:50 [INFO] Loading properties
+2011-07-27 22:23:50 [INFO] Starting Minecraft server on *:25565
+2011-07-27 22:23:50 [INFO] This server is running Craftbukkit version git-Bukkit-0.0.0-904-g9277096-b953jnks (MC: 1.7.2)
+2011-07-27 22:23:50 [INFO] Preparing level "world"
+2011-07-27 22:23:50 [INFO] Preparing start region for level 0 (Seed: -255966985949221558)
+2011-07-27 22:23:51 [INFO] Preparing spawn area: 81%
+2011-07-27 22:23:51 [INFO] Preparing start region for level 1 (Seed: -255966985949221558)
+2011-07-27 22:23:52 [INFO] Preparing spawn area: 97%
+2011-07-27 22:23:52 [INFO] Done (0.233s)! For help, type "help" or "?"
+2011-07-27 22:23:55 [INFO] captainmack [/127.0.0.1:64142] logged in with entity id 105 at ([world] -353.83090756536853, 69.0, -313.31234225269566)
+2011-07-27 22:31:09 [INFO] captainmack lost connection: disconnect.quitting
+2011-07-27 22:31:09 [INFO] Connection reset
+2011-07-27 22:34:53 [INFO] captainmack [/127.0.0.1:64161] logged in with entity id 3672 at ([world] -346.5, 69.0, -307.5)
+2011-07-27 22:34:56 [WARNING] Can't keep up! Did the system time change, or is the server overloaded?
+2011-07-27 22:35:32 [INFO] Unknown console command. Type "help" for help.
+2011-07-27 22:37:04 [INFO] captainmack lost connection: disconnect.quitting
+2011-07-27 22:37:04 [INFO] Connection reset
+2011-07-27 22:47:03 [INFO] Stopping the server..
+2011-07-27 22:47:03 [INFO] Stopping server
+2011-07-27 22:47:03 [INFO] Saving chunks
+2011-07-27 22:47:18 [INFO] Starting minecraft server version Beta 1.7.2
+2011-07-27 22:47:18 [INFO] Loading properties
+2011-07-27 22:47:18 [INFO] Starting Minecraft server on *:25565
+2011-07-27 22:47:18 [INFO] This server is running Craftbukkit version git-Bukkit-0.0.0-904-g9277096-b953jnks (MC: 1.7.2)
+2011-07-27 22:47:19 [INFO] Preparing level "world"
+2011-07-27 22:47:19 [INFO] Preparing start region for level 0 (Seed: -255966985949221558)
+2011-07-27 22:47:20 [INFO] Preparing spawn area: 52%
+2011-07-27 22:47:20 [INFO] Preparing start region for level 1 (Seed: -255966985949221558)
+2011-07-27 22:47:21 [INFO] Preparing spawn area: 44%
+2011-07-27 22:47:22 [INFO] Preparing spawn area: 77%
+2011-07-27 22:47:23 [INFO] Done (0.403s)! For help, type "help" or "?"
+2011-07-27 22:47:23 [INFO] Stopping the server..
+2011-07-27 22:47:23 [INFO] Stopping server
+2011-07-27 22:47:23 [INFO] Saving chunks
+2011-07-27 22:47:28 [INFO] Starting minecraft server version Beta 1.7.2
+2011-07-27 22:47:28 [INFO] Loading properties
+2011-07-27 22:47:28 [INFO] Starting Minecraft server on *:25565
+2011-07-27 22:47:28 [INFO] This server is running Craftbukkit version git-Bukkit-0.0.0-904-g9277096-b953jnks (MC: 1.7.2)
+2011-07-27 22:47:28 [INFO] Preparing level "world"
+2011-07-27 22:47:28 [INFO] Preparing start region for level 0 (Seed: -255966985949221558)
+2011-07-27 22:47:29 [INFO] Preparing spawn area: 77%
+2011-07-27 22:47:29 [INFO] Preparing start region for level 1 (Seed: -255966985949221558)
+2011-07-27 22:47:30 [INFO] Preparing spawn area: 97%
+2011-07-27 22:47:30 [INFO] Done (0.236s)! For help, type "help" or "?"
+2011-07-27 22:48:54 [INFO] Stopping the server..
+2011-07-27 22:48:54 [INFO] Stopping server
+2011-07-27 22:48:54 [INFO] Saving chunks
+2011-07-27 22:49:04 [INFO] Starting minecraft server version Beta 1.7.2
+2011-07-27 22:49:04 [INFO] Loading properties
+2011-07-27 22:49:04 [INFO] Starting Minecraft server on *:25565
+2011-07-27 22:49:04 [INFO] This server is running Craftbukkit version git-Bukkit-0.0.0-904-g9277096-b953jnks (MC: 1.7.2)
+2011-07-27 22:49:04 [INFO] Preparing level "world"
+2011-07-27 22:49:04 [INFO] Preparing start region for level 0 (Seed: -255966985949221558)
+2011-07-27 22:49:05 [INFO] Preparing spawn area: 89%
+2011-07-27 22:49:05 [INFO] Preparing start region for level 1 (Seed: -255966985949221558)
+2011-07-27 22:49:06 [INFO] Done (0.220s)! For help, type "help" or "?"
+2011-07-27 22:49:43 [INFO] captainmack [/127.0.0.1:64184] logged in with entity id 113 at ([world] -346.5, 69.0, -307.5)
+2011-07-27 22:51:49 [INFO] captainmack lost connection: disconnect.endOfStream
+2011-07-27 22:52:29 [WARNING] Can't keep up! Did the system time change, or is the server overloaded?
+2011-07-27 22:56:49 [INFO] Stopping the server..
+2011-07-27 22:56:49 [INFO] Stopping server
+2011-07-27 22:56:49 [INFO] Saving chunks
