@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'interface.ui'
 #
-# Created: Thu Jul 28 17:42:05 2011
+# Created: Thu Jul 28 18:15:43 2011
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,7 +17,7 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(802, 629)
+        MainWindow.resize(842, 620)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.horizontalLayout = QtGui.QHBoxLayout(self.centralwidget)
@@ -41,13 +41,13 @@ class Ui_MainWindow(object):
         self.splitter = QtGui.QSplitter(self.tabChat)
         self.splitter.setOrientation(QtCore.Qt.Horizontal)
         self.splitter.setObjectName(_fromUtf8("splitter"))
-        self.widget = QtGui.QWidget(self.splitter)
-        self.widget.setObjectName(_fromUtf8("widget"))
-        self.verticalLayout = QtGui.QVBoxLayout(self.widget)
+        self.layoutWidget = QtGui.QWidget(self.splitter)
+        self.layoutWidget.setObjectName(_fromUtf8("layoutWidget"))
+        self.verticalLayout = QtGui.QVBoxLayout(self.layoutWidget)
         self.verticalLayout.setSpacing(7)
         self.verticalLayout.setMargin(0)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.treeWidgetChat = QtGui.QTreeWidget(self.widget)
+        self.treeWidgetChat = QtGui.QTreeWidget(self.layoutWidget)
         self.treeWidgetChat.setFocusPolicy(QtCore.Qt.NoFocus)
         self.treeWidgetChat.setProperty(_fromUtf8("showDropIndicator"), False)
         self.treeWidgetChat.setAlternatingRowColors(True)
@@ -61,18 +61,18 @@ class Ui_MainWindow(object):
         self.treeWidgetChat.setObjectName(_fromUtf8("treeWidgetChat"))
         self.treeWidgetChat.header().setVisible(False)
         self.verticalLayout.addWidget(self.treeWidgetChat)
-        self.lineEditMessage = QtGui.QLineEdit(self.widget)
+        self.lineEditMessage = QtGui.QLineEdit(self.layoutWidget)
         self.lineEditMessage.setObjectName(_fromUtf8("lineEditMessage"))
         self.verticalLayout.addWidget(self.lineEditMessage)
-        self.treeWidget = QtGui.QTreeWidget(self.splitter)
-        self.treeWidget.setMaximumSize(QtCore.QSize(191, 16777215))
-        self.treeWidget.setBaseSize(QtCore.QSize(0, 0))
-        self.treeWidget.setFocusPolicy(QtCore.Qt.ClickFocus)
-        self.treeWidget.setVerticalScrollMode(QtGui.QAbstractItemView.ScrollPerPixel)
-        self.treeWidget.setIndentation(15)
-        self.treeWidget.setObjectName(_fromUtf8("treeWidget"))
-        self.treeWidget.headerItem().setText(0, _fromUtf8("1"))
-        self.treeWidget.header().setVisible(False)
+        self.treeWidgetPlayersList = QtGui.QTreeWidget(self.splitter)
+        self.treeWidgetPlayersList.setMaximumSize(QtCore.QSize(191, 16777215))
+        self.treeWidgetPlayersList.setBaseSize(QtCore.QSize(0, 0))
+        self.treeWidgetPlayersList.setFocusPolicy(QtCore.Qt.ClickFocus)
+        self.treeWidgetPlayersList.setVerticalScrollMode(QtGui.QAbstractItemView.ScrollPerPixel)
+        self.treeWidgetPlayersList.setIndentation(15)
+        self.treeWidgetPlayersList.setObjectName(_fromUtf8("treeWidgetPlayersList"))
+        self.treeWidgetPlayersList.headerItem().setText(0, _fromUtf8("1"))
+        self.treeWidgetPlayersList.header().setVisible(False)
         self.horizontalLayout_2.addWidget(self.splitter)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8("../../../../../../../../Pictures/Chat.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -170,7 +170,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addLayout(self.gridLayout)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 802, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 842, 20))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
@@ -178,7 +178,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidgetChatConsole.setCurrentIndex(2)
+        self.tabWidgetChatConsole.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         MainWindow.setTabOrder(self.pushButtonStopStart, self.lineEditConsole)
         MainWindow.setTabOrder(self.lineEditConsole, self.treeWidgetConsole)
@@ -186,7 +186,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
         self.treeWidgetChat.headerItem().setText(0, QtGui.QApplication.translate("MainWindow", "Player Chat", None, QtGui.QApplication.UnicodeUTF8))
-        self.treeWidget.setSortingEnabled(False)
+        self.treeWidgetPlayersList.setSortingEnabled(False)
         self.tabWidgetChatConsole.setTabText(self.tabWidgetChatConsole.indexOf(self.tabChat), QtGui.QApplication.translate("MainWindow", "Chat", None, QtGui.QApplication.UnicodeUTF8))
         self.treeWidgetPluginList.setSortingEnabled(True)
         self.treeWidgetPluginList.headerItem().setText(0, QtGui.QApplication.translate("MainWindow", "checked", None, QtGui.QApplication.UnicodeUTF8))

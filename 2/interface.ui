@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>802</width>
-    <height>629</height>
+    <width>842</width>
+    <height>620</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,7 +37,7 @@
            <enum>QTabWidget::Rounded</enum>
           </property>
           <property name="currentIndex">
-           <number>2</number>
+           <number>0</number>
           </property>
           <property name="tabsClosable">
            <bool>false</bool>
@@ -56,7 +56,7 @@
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
-              <widget class="QWidget" name="">
+              <widget class="QWidget" name="layoutWidget">
                <layout class="QVBoxLayout" name="verticalLayout">
                 <property name="spacing">
                  <number>7</number>
@@ -96,9 +96,6 @@
                   <attribute name="headerVisible">
                    <bool>false</bool>
                   </attribute>
-                  <attribute name="headerVisible">
-                   <bool>false</bool>
-                  </attribute>
                   <column>
                    <property name="text">
                     <string>Player Chat</string>
@@ -111,7 +108,7 @@
                 </item>
                </layout>
               </widget>
-              <widget class="QTreeWidget" name="treeWidget">
+              <widget class="QTreeWidget" name="treeWidgetPlayersList">
                <property name="maximumSize">
                 <size>
                  <width>191</width>
@@ -136,9 +133,6 @@
                <property name="sortingEnabled">
                 <bool>false</bool>
                </property>
-               <attribute name="headerVisible">
-                <bool>false</bool>
-               </attribute>
                <attribute name="headerVisible">
                 <bool>false</bool>
                </attribute>
@@ -194,15 +188,6 @@
                </attribute>
                <attribute name="headerDefaultSectionSize">
                 <number>20</number>
-               </attribute>
-               <attribute name="headerMinimumSectionSize">
-                <number>20</number>
-               </attribute>
-               <attribute name="headerDefaultSectionSize">
-                <number>20</number>
-               </attribute>
-               <attribute name="headerVisible">
-                <bool>false</bool>
                </attribute>
                <attribute name="headerMinimumSectionSize">
                 <number>20</number>
@@ -270,9 +255,6 @@
                   <attribute name="headerVisible">
                    <bool>false</bool>
                   </attribute>
-                  <attribute name="headerVisible">
-                   <bool>false</bool>
-                  </attribute>
                   <column>
                    <property name="text">
                     <string>Console</string>
@@ -316,9 +298,6 @@
                   <property name="expandsOnDoubleClick">
                    <bool>false</bool>
                   </property>
-                  <attribute name="headerVisible">
-                   <bool>false</bool>
-                  </attribute>
                   <attribute name="headerVisible">
                    <bool>false</bool>
                   </attribute>
@@ -384,8 +363,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>802</width>
-     <height>22</height>
+     <width>842</width>
+     <height>20</height>
     </rect>
    </property>
   </widget>
