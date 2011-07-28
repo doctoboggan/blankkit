@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>838</width>
-    <height>665</height>
+    <width>802</width>
+    <height>629</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,7 +37,7 @@
            <enum>QTabWidget::Rounded</enum>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>2</number>
           </property>
           <property name="tabsClosable">
            <bool>false</bool>
@@ -50,19 +50,22 @@
            <attribute name="title">
             <string>Chat</string>
            </attribute>
-           <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_2">
-              <property name="spacing">
-               <number>0</number>
+             <widget class="QSplitter" name="splitter">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
               </property>
-              <item>
+              <widget class="QWidget" name="">
                <layout class="QVBoxLayout" name="verticalLayout">
                 <property name="spacing">
-                 <number>0</number>
+                 <number>7</number>
                 </property>
                 <item>
                  <widget class="QTreeWidget" name="treeWidgetChat">
+                  <property name="focusPolicy">
+                   <enum>Qt::NoFocus</enum>
+                  </property>
                   <property name="showDropIndicator" stdset="0">
                    <bool>false</bool>
                   </property>
@@ -93,6 +96,9 @@
                   <attribute name="headerVisible">
                    <bool>false</bool>
                   </attribute>
+                  <attribute name="headerVisible">
+                   <bool>false</bool>
+                  </attribute>
                   <column>
                    <property name="text">
                     <string>Player Chat</string>
@@ -104,25 +110,47 @@
                  <widget class="QLineEdit" name="lineEditMessage"/>
                 </item>
                </layout>
-              </item>
-              <item>
-               <widget class="QTextBrowser" name="textBrowserPlayerList">
-                <property name="enabled">
-                 <bool>true</bool>
+              </widget>
+              <widget class="QTreeWidget" name="treeWidget">
+               <property name="maximumSize">
+                <size>
+                 <width>191</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="baseSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="focusPolicy">
+                <enum>Qt::ClickFocus</enum>
+               </property>
+               <property name="verticalScrollMode">
+                <enum>QAbstractItemView::ScrollPerPixel</enum>
+               </property>
+               <property name="indentation">
+                <number>15</number>
+               </property>
+               <property name="sortingEnabled">
+                <bool>false</bool>
+               </property>
+               <attribute name="headerVisible">
+                <bool>false</bool>
+               </attribute>
+               <attribute name="headerVisible">
+                <bool>false</bool>
+               </attribute>
+               <column>
+                <property name="text">
+                 <string notr="true">1</string>
                 </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>141</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
+               </column>
+              </widget>
+             </widget>
             </item>
            </layout>
-           <zorder>splitter</zorder>
-           <zorder>treeWidgetChat</zorder>
           </widget>
           <widget class="QWidget" name="tabPlugins">
            <attribute name="icon">
@@ -132,60 +160,65 @@
            <attribute name="title">
             <string>Plugins</string>
            </attribute>
-           <layout class="QHBoxLayout" name="horizontalLayout_8">
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_7">
-              <property name="spacing">
-               <number>0</number>
+             <widget class="QSplitter" name="splitter_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
               </property>
-              <item>
-               <widget class="QTextBrowser" name="textBrowserPlugin"/>
-              </item>
-              <item>
-               <widget class="QTreeWidget" name="treeWidgetPluginList">
-                <property name="maximumSize">
-                 <size>
-                  <width>141</width>
-                  <height>16777215</height>
-                 </size>
+              <widget class="QTextBrowser" name="textBrowserPlugin"/>
+              <widget class="QTreeWidget" name="treeWidgetPluginList">
+               <property name="maximumSize">
+                <size>
+                 <width>191</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="verticalScrollMode">
+                <enum>QAbstractItemView::ScrollPerPixel</enum>
+               </property>
+               <property name="indentation">
+                <number>5</number>
+               </property>
+               <property name="rootIsDecorated">
+                <bool>false</bool>
+               </property>
+               <property name="sortingEnabled">
+                <bool>true</bool>
+               </property>
+               <property name="headerHidden">
+                <bool>true</bool>
+               </property>
+               <attribute name="headerVisible">
+                <bool>false</bool>
+               </attribute>
+               <attribute name="headerDefaultSectionSize">
+                <number>20</number>
+               </attribute>
+               <attribute name="headerMinimumSectionSize">
+                <number>20</number>
+               </attribute>
+               <attribute name="headerDefaultSectionSize">
+                <number>20</number>
+               </attribute>
+               <attribute name="headerVisible">
+                <bool>false</bool>
+               </attribute>
+               <attribute name="headerMinimumSectionSize">
+                <number>20</number>
+               </attribute>
+               <column>
+                <property name="text">
+                 <string>checked</string>
                 </property>
-                <property name="verticalScrollMode">
-                 <enum>QAbstractItemView::ScrollPerPixel</enum>
+               </column>
+               <column>
+                <property name="text">
+                 <string>name</string>
                 </property>
-                <property name="indentation">
-                 <number>5</number>
-                </property>
-                <property name="rootIsDecorated">
-                 <bool>false</bool>
-                </property>
-                <property name="sortingEnabled">
-                 <bool>true</bool>
-                </property>
-                <property name="headerHidden">
-                 <bool>true</bool>
-                </property>
-                <attribute name="headerVisible">
-                 <bool>false</bool>
-                </attribute>
-                <attribute name="headerDefaultSectionSize">
-                 <number>20</number>
-                </attribute>
-                <attribute name="headerMinimumSectionSize">
-                 <number>20</number>
-                </attribute>
-                <column>
-                 <property name="text">
-                  <string>checked</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>name</string>
-                 </property>
-                </column>
-               </widget>
-              </item>
-             </layout>
+               </column>
+              </widget>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -201,15 +234,18 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_5">
               <property name="spacing">
-               <number>0</number>
+               <number>7</number>
               </property>
               <item>
                <layout class="QVBoxLayout" name="verticalLayout_2">
                 <property name="spacing">
-                 <number>0</number>
+                 <number>7</number>
                 </property>
                 <item>
                  <widget class="QTreeWidget" name="treeWidgetConsole">
+                  <property name="focusPolicy">
+                   <enum>Qt::NoFocus</enum>
+                  </property>
                   <property name="alternatingRowColors">
                    <bool>false</bool>
                   </property>
@@ -234,6 +270,9 @@
                   <attribute name="headerVisible">
                    <bool>false</bool>
                   </attribute>
+                  <attribute name="headerVisible">
+                   <bool>false</bool>
+                  </attribute>
                   <column>
                    <property name="text">
                     <string>Console</string>
@@ -249,13 +288,13 @@
               <item>
                <layout class="QVBoxLayout" name="verticalLayout_4">
                 <property name="spacing">
-                 <number>0</number>
+                 <number>7</number>
                 </property>
                 <item>
                  <widget class="QTreeWidget" name="treeWidgetConsoleList">
                   <property name="maximumSize">
                    <size>
-                    <width>141</width>
+                    <width>171</width>
                     <height>16777215</height>
                    </size>
                   </property>
@@ -277,6 +316,9 @@
                   <property name="expandsOnDoubleClick">
                    <bool>false</bool>
                   </property>
+                  <attribute name="headerVisible">
+                   <bool>false</bool>
+                  </attribute>
                   <attribute name="headerVisible">
                    <bool>false</bool>
                   </attribute>
@@ -342,8 +384,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>838</width>
-     <height>20</height>
+     <width>802</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>
