@@ -94,7 +94,16 @@ class MyServer(QtGui.QMainWindow):
       self.consoleLines.extend(consoleLines)
   
   def updatePlayersDisplay(self, onlineDict):
-    pass
+    for name in onlineDict:
+      a = QtGui.QTreeWidgetItem(self.ui.treeWidgetPlayersList)
+      a.setText(0, name)
+      childrenList = []
+      for key in onlineDict[name]:
+        w = QtGui.QTreeWidgetItem(self.ui.treeWidgetPlayersList)
+        w.setText(0, str(key) + ': ' + str(onlineDict[name][key]))
+        childrenList.append(w)
+      print w
+      a.insertChildren(childrenList)
       	
       	
 #####################
@@ -104,6 +113,15 @@ class MyServer(QtGui.QMainWindow):
   def getNewServerLines(self):
     if self.lastServerLine == 'first run':
       newServerLines = self.s.console(60)
+      searchBack = 60
+      found = []
+      while not len(found):
+        found = filter(None, [1 for line in newServerLines if ' Starting minecraft server version ' in line])
+        newServerLines = self.s.console(searchBack+60)
+        searchBack += 60
+      newServerLines = self.s.console(searchBack)
+      found = [1 if ' Starting minecraft server version ' in line else 0 for line in newServerLines]
+      newServerLines = newServerLines[found.index(1):]
       self.lastServerLine = newServerLines[-1]
     else:
       newServerLines = self.s.consoleReadTo(self.lastServerLine)
