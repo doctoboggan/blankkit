@@ -121,7 +121,9 @@ class MyServer(QtGui.QMainWindow):
         searchBack += 60
       newServerLines = self.s.console(searchBack)
       found = [1 if ' Starting minecraft server version ' in line else 0 for line in newServerLines]
-      newServerLines = newServerLines[found.index(1):]
+      found.reverse()
+      indexOfServerRestart = abs(found.index(1)-len(found))
+      newServerLines = newServerLines[indexOfServerRestart:]
       self.lastServerLine = newServerLines[-1]
     else:
       newServerLines = self.s.consoleReadTo(self.lastServerLine)

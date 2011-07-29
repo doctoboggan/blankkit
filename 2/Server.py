@@ -27,7 +27,8 @@ class Server:
   #Initialize the object
   def __init__(self):
     #Instance variables
-    self.startupScript = '/Users/jackminardi/bukkit/minecraft.sh'
+    #self.startupScript = '/Users/jackminardi/bukkit/minecraft.sh'
+    self.startupScript = '/home/sa/bukkit/minecraft.sh'
     
     #Check the server status. If it is already running, resume it, if not, start it up.
     if self.status():
@@ -43,6 +44,8 @@ class Server:
     if not self.status():
       self.mcServer = pexpect.spawn('screen -S mc ' + self.startupScript, timeout=120)
       self.mcServer.expect('\[INFO\] Done')
+      self.startupLines = self.mcServer.before.split('\n')
+      print self.startupLines
       print 'Started'
     else:
       print 'Server is already running'
