@@ -87,6 +87,7 @@ class MyServer(QtGui.QMainWindow):
       fixedLine = line[5:19] + line[26:]
       width = self.ui.treeWidgetConsole.columnWidth(0)
       fixedLine = utils.wordWrap(width-5, fixedLine)
+      print 'Width:', width, 'Fixed line:', [fixedLine]
       a = QtGui.QTreeWidgetItem(self.ui.treeWidgetConsole)
       a.setText(0, fixedLine)
     if len(consoleLines):
@@ -99,7 +100,7 @@ class MyServer(QtGui.QMainWindow):
       a.setText(0, name)
       childrenList = []
       for key in onlineDict[name]:
-        w = QtGui.QTreeWidgetItem(self.ui.treeWidgetPlayersList)
+        w = QtGui.QTreeWidgetItem(a)
         w.setText(0, str(key) + ': ' + str(onlineDict[name][key]))
         childrenList.append(w)
       print w
@@ -122,7 +123,7 @@ class MyServer(QtGui.QMainWindow):
       newServerLines = self.s.console(searchBack)
       found = [1 if ' Starting minecraft server version ' in line else 0 for line in newServerLines]
       found.reverse()
-      indexOfServerRestart = abs(found.index(1)-len(found))
+      indexOfServerRestart = abs(found.index(1)-len(found))-1
       newServerLines = newServerLines[indexOfServerRestart:]
       self.lastServerLine = newServerLines[-1]
     else:

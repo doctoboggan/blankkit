@@ -27,8 +27,8 @@ class Server:
   #Initialize the object
   def __init__(self):
     #Instance variables
-    #self.startupScript = '/Users/jackminardi/bukkit/minecraft.sh'
-    self.startupScript = '/home/sa/bukkit/minecraft.sh'
+    self.startupScript = '/Users/jackminardi/bukkit/minecraft.sh'
+    #self.startupScript = '/home/sa/bukkit/minecraft.sh'
     
     #Check the server status. If it is already running, resume it, if not, start it up.
     if self.status():
