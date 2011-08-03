@@ -1,0 +1,16 @@
+Things to fix:
+Player display does not remove a player when he logs off
+Online PLayers: in the status bar shows 0 because it goes off new players just logged in and not current players
+Down arrow in the players list is not working on os x
+When you are scrolling up through the chat and someone posts something new it jumps you down to the bottom
+Word wrap is not working
+
+Things to add:
+Plugins tab:
+ list of plugins, when you select one it shows all text tagged with that name
+ 
+In the future:
+Remote connection (SSH)
+Enable/disable plugins
+Grey out start/stop button
+Put the fetchNewLines method in its own thread and send out signals when it finds new lines

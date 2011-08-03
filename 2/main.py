@@ -94,13 +94,13 @@ class MyServer(QtGui.QMainWindow):
       self.ui.treeWidgetConsole.scrollToItem(a)
       self.consoleLines.extend(consoleLines)
   
-  def updatePlayersDisplay(self, onlineDict):
+  def updatePlayersDisplay(self, onlineDict, loggedOff):
     for name in onlineDict:
       a = QtGui.QTreeWidgetItem(self.ui.treeWidgetPlayersList)
       a.setText(0, name)
       childrenList = []
       for key in onlineDict[name]:
-        w = QtGui.QTreeWidgetItem(a)
+        w = QtGui.QTreeWidgetItem(0, a)
         w.setText(0, str(key) + ': ' + str(onlineDict[name][key]))
         childrenList.append(w)
       print w
@@ -136,6 +136,7 @@ class MyServer(QtGui.QMainWindow):
     newServerLines = self.getNewServerLines()
     chatLines = []
     onlineDict = {}
+    loggedOff = []
     if len(newServerLines) > 0:
       for line in newServerLines:
         matchChat = re.search(r'<\w+>', line)
@@ -163,12 +164,14 @@ class MyServer(QtGui.QMainWindow):
             name = matchLoggedOut2.group(1)
           if name in onlineDict:
             del onlineDict[name]
+          else:
+            loggedOff.append(name)
             
       self.playerCount = len(onlineDict)
             
       self.updateConsoleDisplay(newServerLines)
       self.updateChatDisplay(chatLines)
-      self.updatePlayersDisplay(onlineDict)
+      self.updatePlayersDisplay(onlineDict, loggedOff)
     return None
       
 
