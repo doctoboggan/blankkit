@@ -102,7 +102,6 @@ class MyServer(QtGui.QMainWindow):
         w = QtGui.QTreeWidgetItem(0, a)
         w.setText(0, str(key) + ': ' + str(onlineDict[name][key]))
         childrenList.append(w)
-      print w
       a.insertChildren(childrenList)
       	
       	
