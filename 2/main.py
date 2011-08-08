@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#! /usr/bin/env python
 
 import sys, re
 import utils
@@ -58,7 +58,7 @@ class MyServer(QtGui.QMainWindow):
       self.ui.pushButtonStopStart.setText('Stop Server')  
 
   def sendChat(self):
-    message = self.ui.lineEditMessage.text()
+    message = str(self.ui.lineEditMessage.text())
     self.ui.lineEditMessage.clear()   
     if message != '':
       self.s.message(message)
@@ -76,7 +76,7 @@ class MyServer(QtGui.QMainWindow):
       self.chatLines.extend(chatLines)
 
   def sendConsole(self):
-    message = self.ui.lineEditConsole.text()
+    message = str(self.ui.lineEditConsole.text())
     self.ui.lineEditConsole.clear()   
     if message != '':
       self.s.command(message)
@@ -87,7 +87,6 @@ class MyServer(QtGui.QMainWindow):
       fixedLine = line[5:19] + line[26:]
       width = self.ui.treeWidgetConsole.columnWidth(0)
       fixedLine = utils.wordWrap(width-5, fixedLine)
-      print 'Width:', width, 'Fixed line:', [fixedLine]
       a = QtGui.QTreeWidgetItem(self.ui.treeWidgetConsole)
       a.setText(0, fixedLine)
     if len(consoleLines):

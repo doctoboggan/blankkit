@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#! /usr/bin/env python
 
 def collapse(llist):
   collapsedList = []
@@ -17,4 +17,4 @@ def wordWrap(length, line):
       q = wordWrap(length, tail)
       return head + q
   return head + tail
-    
+

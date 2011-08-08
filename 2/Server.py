@@ -27,7 +27,7 @@ class Server:
   #Initialize the object
   def __init__(self):
     #Instance variables
-    self.startupScript = '/Users/jackminardi/bukkit/minecraft.sh'
+    self.startupScript = '/Users/jack/.mcserver/start.sh'
     #self.startupScript = '/home/sa/bukkit/minecraft.sh'
     
     #Check the server status. If it is already running, resume it, if not, start it up.
@@ -112,8 +112,12 @@ class Server:
     #This loop reads in reverse from the end of the file looking for newline characters
     #When it finds n+1 charaters it knows it has gone back far enough for n lines
     while len(newLinePos) < n+1:
-      bytesBack = bytesBack + 1
-      logFile.seek(0-bytesBack, os.SEEK_END)
+      bytesBack += 1
+      try: #If the file is shorter than the number of lines we requested, this will throw an IOError
+        logFile.seek(0-bytesBack, os.SEEK_END)
+      except IOError:
+        bytesBack -= 1
+        break
       if logFile.read(1) == '\n':
         newLinePos.append(bytesBack) #Store the position of each newline character
     logFile.seek(0-bytesBack, os.SEEK_END)
