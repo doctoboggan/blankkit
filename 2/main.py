@@ -13,7 +13,7 @@ class MyServer(QtGui.QMainWindow):
     self.chatLines = []
     self.consoleLines = []
     self.lastServerLine = 'first run'
-    self.playerCount = 0  
+    self.onlineDict = {}  
     
     #Initialize a QTimer to run background updates (online players, status, new chat messages, etc)
     self.repeatingTimer = QtCore.QTimer()
@@ -93,16 +93,16 @@ class MyServer(QtGui.QMainWindow):
       self.ui.treeWidgetConsole.scrollToItem(a)
       self.consoleLines.extend(consoleLines)
   
-  def updatePlayersDisplay(self, onlineDict, loggedOff):
-    for name in onlineDict:
+  def updatePlayersDisplay(self):
+    self.ui.treeWidgetPlayersList.clear()
+    for name in self.onlineDict:
       a = QtGui.QTreeWidgetItem(self.ui.treeWidgetPlayersList)
       a.setText(0, name)
       childrenList = []
-      for key in onlineDict[name]:
-        w = QtGui.QTreeWidgetItem(0, a)
-        w.setText(0, str(key) + ': ' + str(onlineDict[name][key]))
-        childrenList.append(w)
-      a.insertChildren(childrenList)
+      for key in self.onlineDict[name]:
+        w = QtGui.QTreeWidgetItem(a)
+        w.setText(0, str(key) + ': ' + str(self.onlineDict[name][key]))
+        a.insertChild(0, w)
       	
       	
 #####################
@@ -133,8 +133,6 @@ class MyServer(QtGui.QMainWindow):
   def routeServerLines(self):
     newServerLines = self.getNewServerLines()
     chatLines = []
-    onlineDict = {}
-    loggedOff = []
     if len(newServerLines) > 0:
       for line in newServerLines:
         matchChat = re.search(r'<\w+>', line)
@@ -151,7 +149,7 @@ class MyServer(QtGui.QMainWindow):
           name = matchLoggedIn.group(2)
           ip = matchLoggedIn.group(3)
           ID = matchLoggedIn.group(4)
-          onlineDict[name] = {'timeIn':time,
+          self.onlineDict[name] = {'Logged In':time[11:],
                               'IP':ip,
                               'ID':ID}
         
@@ -160,16 +158,13 @@ class MyServer(QtGui.QMainWindow):
             name = matchLoggedOut.group(1)
           except AttributeError:
             name = matchLoggedOut2.group(1)
-          if name in onlineDict:
-            del onlineDict[name]
-          else:
-            loggedOff.append(name)
+          if name in self.onlineDict:
+            del self.onlineDict[name]
             
-      self.playerCount = len(onlineDict)
             
       self.updateConsoleDisplay(newServerLines)
       self.updateChatDisplay(chatLines)
-      self.updatePlayersDisplay(onlineDict, loggedOff)
+      self.updatePlayersDisplay()
     return None
       
 
@@ -182,7 +177,7 @@ class MyServer(QtGui.QMainWindow):
   
   def updateStatusBar(self):
     if self.s.status():
-      line = 'SERVER IS ON - Players Online: ' + str(self.playerCount)
+      line = 'SERVER IS ON - Players Online: ' + str(len(self.onlineDict))
     else:
       line = 'SERVER IS OFF'
     self.ui.statusbar.showMessage(line)
