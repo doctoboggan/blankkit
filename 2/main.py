@@ -112,13 +112,13 @@ class MyServer(QtGui.QMainWindow):
   def findPlugins(self, newServerLines):
     pluginsDict = {}
     for line in newServerLines:
-      matchPlugin = re.search(r'(\d+\-\d+\-\d+ \d+:\d+:\d+) \[INFO\] \[(\w+)\]', line)
+      matchPlugin = re.search(r'\d+\-\d+\-\d+ \d+:\d+:\d+ \[INFO\] \[(\w+)\]', line)
       if matchPlugin:
         pluginName = matchPlugin.group(1)
         if pluginName in pluginsDict:
-          pluginsDict[pluginName].append(matchPlugin.group())
+          pluginsDict[pluginName].append(line)
         else:
-          pluginsDict[pluginName] = matchPlugin.group()
+          pluginsDict[pluginName] = [line]
     print pluginsDict
 
   def getNewServerLines(self):
