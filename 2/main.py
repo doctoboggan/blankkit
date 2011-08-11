@@ -103,7 +103,12 @@ class MyServer(QtGui.QMainWindow):
         w = QtGui.QTreeWidgetItem(a)
         w.setText(0, str(key) + ': ' + str(self.onlineDict[name][key]))
         a.insertChild(0, w)
-      	
+  
+  def updatePluginsList(self, pluginsDict):
+    for pluginName in pluginsDict.keys():
+      a = QtGui.QTreeWidgetItem(self.ui.treeWidgetPluginList)
+      a.setText(str(pluginName))
+
       	
 #####################
 #Other methods
@@ -119,7 +124,7 @@ class MyServer(QtGui.QMainWindow):
           pluginsDict[pluginName].append(line)
         else:
           pluginsDict[pluginName] = [line]
-    print pluginsDict
+    
 
   def getNewServerLines(self):
     if self.lastServerLine == 'first run':
