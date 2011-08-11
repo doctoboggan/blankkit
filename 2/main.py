@@ -107,7 +107,8 @@ class MyServer(QtGui.QMainWindow):
   def updatePluginsList(self, pluginsDict):
     for pluginName in pluginsDict.keys():
       a = QtGui.QTreeWidgetItem(self.ui.treeWidgetPluginList)
-      a.setText(str(pluginName))
+      a.setText(0, str(pluginName))
+      print str(pluginName)
 
       	
 #####################
@@ -124,6 +125,7 @@ class MyServer(QtGui.QMainWindow):
           pluginsDict[pluginName].append(line)
         else:
           pluginsDict[pluginName] = [line]
+    self.updatePluginsList(pluginsDict)
     
 
   def getNewServerLines(self):

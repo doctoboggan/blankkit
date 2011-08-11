@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'interface.ui'
 #
-# Created: Thu Aug 11 03:14:59 2011
+# Created: Thu Aug 11 03:36:35 2011
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -33,6 +33,7 @@ class Ui_MainWindow(object):
         self.tabWidgetChatConsole.setTabPosition(QtGui.QTabWidget.North)
         self.tabWidgetChatConsole.setTabShape(QtGui.QTabWidget.Rounded)
         self.tabWidgetChatConsole.setTabsClosable(False)
+        self.tabWidgetChatConsole.setMovable(True)
         self.tabWidgetChatConsole.setObjectName(_fromUtf8("tabWidgetChatConsole"))
         self.tabChat = QtGui.QWidget()
         self.tabChat.setObjectName(_fromUtf8("tabChat"))
@@ -92,6 +93,7 @@ class Ui_MainWindow(object):
         self.treeWidgetPluginList.setIndentation(5)
         self.treeWidgetPluginList.setRootIsDecorated(False)
         self.treeWidgetPluginList.setHeaderHidden(True)
+        self.treeWidgetPluginList.setColumnCount(1)
         self.treeWidgetPluginList.setObjectName(_fromUtf8("treeWidgetPluginList"))
         self.treeWidgetPluginList.header().setVisible(False)
         self.treeWidgetPluginList.header().setDefaultSectionSize(20)
@@ -107,12 +109,12 @@ class Ui_MainWindow(object):
         self.splitter_3 = QtGui.QSplitter(self.tabConsole)
         self.splitter_3.setOrientation(QtCore.Qt.Horizontal)
         self.splitter_3.setObjectName(_fromUtf8("splitter_3"))
-        self.widget = QtGui.QWidget(self.splitter_3)
-        self.widget.setObjectName(_fromUtf8("widget"))
-        self.verticalLayout_2 = QtGui.QVBoxLayout(self.widget)
+        self.layoutWidget1 = QtGui.QWidget(self.splitter_3)
+        self.layoutWidget1.setObjectName(_fromUtf8("layoutWidget1"))
+        self.verticalLayout_2 = QtGui.QVBoxLayout(self.layoutWidget1)
         self.verticalLayout_2.setMargin(0)
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
-        self.treeWidgetConsole = QtGui.QTreeWidget(self.widget)
+        self.treeWidgetConsole = QtGui.QTreeWidget(self.layoutWidget1)
         self.treeWidgetConsole.setFocusPolicy(QtCore.Qt.NoFocus)
         self.treeWidgetConsole.setAlternatingRowColors(False)
         self.treeWidgetConsole.setSelectionMode(QtGui.QAbstractItemView.NoSelection)
@@ -124,7 +126,7 @@ class Ui_MainWindow(object):
         self.treeWidgetConsole.setObjectName(_fromUtf8("treeWidgetConsole"))
         self.treeWidgetConsole.header().setVisible(False)
         self.verticalLayout_2.addWidget(self.treeWidgetConsole)
-        self.lineEditConsole = QtGui.QLineEdit(self.widget)
+        self.lineEditConsole = QtGui.QLineEdit(self.layoutWidget1)
         self.lineEditConsole.setObjectName(_fromUtf8("lineEditConsole"))
         self.verticalLayout_2.addWidget(self.lineEditConsole)
         self.treeWidgetConsoleList = QtGui.QTreeWidget(self.splitter_3)
@@ -150,7 +152,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addLayout(self.gridLayout)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 842, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 842, 20))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
@@ -170,7 +172,6 @@ class Ui_MainWindow(object):
         self.tabWidgetChatConsole.setTabText(self.tabWidgetChatConsole.indexOf(self.tabChat), QtGui.QApplication.translate("MainWindow", "Chat", None, QtGui.QApplication.UnicodeUTF8))
         self.treeWidgetPluginList.setSortingEnabled(True)
         self.treeWidgetPluginList.headerItem().setText(0, QtGui.QApplication.translate("MainWindow", "checked", None, QtGui.QApplication.UnicodeUTF8))
-        self.treeWidgetPluginList.headerItem().setText(1, QtGui.QApplication.translate("MainWindow", "name", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidgetChatConsole.setTabText(self.tabWidgetChatConsole.indexOf(self.tabPlugins), QtGui.QApplication.translate("MainWindow", "Plugins", None, QtGui.QApplication.UnicodeUTF8))
         self.treeWidgetConsole.headerItem().setText(0, QtGui.QApplication.translate("MainWindow", "Console", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidgetChatConsole.setTabText(self.tabWidgetChatConsole.indexOf(self.tabConsole), QtGui.QApplication.translate("MainWindow", "Console", None, QtGui.QApplication.UnicodeUTF8))

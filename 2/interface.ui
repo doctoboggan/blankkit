@@ -42,6 +42,9 @@
           <property name="tabsClosable">
            <bool>false</bool>
           </property>
+          <property name="movable">
+           <bool>true</bool>
+          </property>
           <widget class="QWidget" name="tabChat">
            <attribute name="icon">
             <iconset>
@@ -183,6 +186,9 @@
                <property name="headerHidden">
                 <bool>true</bool>
                </property>
+               <property name="columnCount">
+                <number>1</number>
+               </property>
                <attribute name="headerVisible">
                 <bool>false</bool>
                </attribute>
@@ -195,11 +201,6 @@
                <column>
                 <property name="text">
                  <string>checked</string>
-                </property>
-               </column>
-               <column>
-                <property name="text">
-                 <string>name</string>
                 </property>
                </column>
               </widget>
@@ -221,7 +222,7 @@
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
-              <widget class="QWidget" name="">
+              <widget class="QWidget" name="layoutWidget">
                <layout class="QVBoxLayout" name="verticalLayout_2">
                 <item>
                  <widget class="QTreeWidget" name="treeWidgetConsole">
@@ -323,7 +324,7 @@
      <x>0</x>
      <y>0</y>
      <width>842</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
