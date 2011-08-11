@@ -1,7 +1,7 @@
 Things to fix:
-Player display does not remove a player when he logs off
-Online PLayers: in the status bar shows 0 because it goes off new players just logged in and not current players
-Down arrow in the players list is not working on os x
+Player display does not remove a player when he logs off DONE
+Online PLayers: in the status bar shows 0 because it goes off new players just logged in and not current players DONE
+Down arrow in the players list is not working on os x DONE
 When you are scrolling up through the chat and someone posts something new it jumps you down to the bottom
 Word wrap is not working
 
@@ -10,7 +10,9 @@ Plugins tab:
  list of plugins, when you select one it shows all text tagged with that name
  
 In the future:
-Remote connection (SSH)
+Remote connection (SSH) use paramiko/pexpect to do this
 Enable/disable plugins
 Grey out start/stop button
-Put the fetchNewLines method in its own thread and send out signals when it finds new lines
+Put the fetchNewLines method in its own thread and send out signals when it finds new lines. also, fuck threads
+In username drop down add option to view only that users chat posts
+Players list totally refreshes each time a new player is added. This isn't that big of a deal when there aren't too many people on, but it could become a problem for large servers (>20)

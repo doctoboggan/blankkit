@@ -45,7 +45,6 @@ class Server:
       self.mcServer = pexpect.spawn('screen -S mc ' + self.startupScript, timeout=120)
       self.mcServer.expect('\[INFO\] Done')
       self.startupLines = self.mcServer.before.split('\n')
-      print self.startupLines
       print 'Started'
     else:
       print 'Server is already running'
@@ -117,7 +116,6 @@ class Server:
         logFile.seek(0-bytesBack, os.SEEK_END)
       except IOError:
         bytesBack -= 1
-        print 'broken. bytes back =', bytesBack
         break
       if logFile.read(1) == '\n':
         newLinePos.append(bytesBack) #Store the position of each newline character
