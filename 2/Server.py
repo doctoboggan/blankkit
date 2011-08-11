@@ -27,8 +27,8 @@ class Server:
   #Initialize the object
   def __init__(self):
     #Instance variables
-    self.startupScript = '/Users/jack/.mcserver/start.sh'
-    #self.startupScript = '/home/sa/bukkit/minecraft.sh'
+    #self.startupScript = '/Users/jack/.mcserver/start.sh'
+    self.startupScript = '/home/sa/bukkit/minecraft.sh'
     
     #Check the server status. If it is already running, resume it, if not, start it up.
     if self.status():
@@ -117,6 +117,7 @@ class Server:
         logFile.seek(0-bytesBack, os.SEEK_END)
       except IOError:
         bytesBack -= 1
+        print 'broken. bytes back =', bytesBack
         break
       if logFile.read(1) == '\n':
         newLinePos.append(bytesBack) #Store the position of each newline character
@@ -157,7 +158,7 @@ class Server:
     newLinePos = []
     currentLine = ''
     #This loop reads in reverse from the end of the file looking for the specified line
-    while readToLine != currentLine:
+    while readToLine not in currentLine:
       bytesBack = bytesBack + 1
       logFile.seek(0-bytesBack, os.SEEK_END)
       if logFile.read(1) == '\n':

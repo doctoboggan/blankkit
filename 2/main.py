@@ -111,23 +111,11 @@ class MyServer(QtGui.QMainWindow):
 
   def getNewServerLines(self):
     if self.lastServerLine == 'first run':
-      newServerLines = self.s.console(60)
-      searchBack = 60
-      found = []
-      while not len(found):
-        found = filter(None, [1 for line in newServerLines if ' Starting minecraft server version ' in line])
-        newServerLines = self.s.console(searchBack+60)
-        searchBack += 60
-      newServerLines = self.s.console(searchBack)
-      found = [1 if ' Starting minecraft server version ' in line else 0 for line in newServerLines]
-      found.reverse()
-      indexOfServerRestart = abs(found.index(1)-len(found))-1
-      newServerLines = newServerLines[indexOfServerRestart:]
-      self.lastServerLine = newServerLines[-1]
+      newServerLines = self.s.consoleReadTo(' [INFO] Stopping server')
     else:
       newServerLines = self.s.consoleReadTo(self.lastServerLine)
-      if len(newServerLines) > 0:
-        self.lastServerLine = newServerLines[-1]
+    if len(newServerLines) > 0:
+      self.lastServerLine = newServerLines[-1]
     return newServerLines
     
   def routeServerLines(self):
