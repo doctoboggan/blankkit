@@ -17,7 +17,7 @@ class MyServer(QtGui.QMainWindow):
     
     #Initialize a QTimer to run background updates (online players, status, new chat messages, etc)
     self.repeatingTimer = QtCore.QTimer()
-    self.singleTimer = QtCore.QTimer()
+    self.singleTimer = QtCore.QTimer() #Not used...
     
     self.s=Server()
     QtGui.QWidget.__init__(self, parent)
@@ -109,9 +109,22 @@ class MyServer(QtGui.QMainWindow):
 #Other methods
 #####################
 
+  def findPlugins(self, newServerLines):
+    pluginsDict = {}
+    for line in newServerLines:
+      matchPlugin = re.search(r'(\d+\-\d+\-\d+ \d+:\d+:\d+) \[INFO\] \[(\w+)\]', line)
+      if matchPlugin:
+        pluginName = matchPlugin.group(1)
+        if pluginName in pluginsDict:
+          pluginsDict[pluginName].append(matchPlugin.group())
+        else:
+          pluginsDict[pluginName] = matchPlugin.group()
+    print pluginsDict
+
   def getNewServerLines(self):
     if self.lastServerLine == 'first run':
       newServerLines = self.s.consoleReadTo(' [INFO] Stopping server')
+      self.findPlugins(newServerLines)
     else:
       newServerLines = self.s.consoleReadTo(self.lastServerLine)
     if len(newServerLines) > 0:
@@ -154,8 +167,7 @@ class MyServer(QtGui.QMainWindow):
       self.updateChatDisplay(chatLines)
       self.updatePlayersDisplay()
     return None
-      
-
+   
   def ticToc(self):
     self.updateStatusBar()
     self.routeServerLines()
