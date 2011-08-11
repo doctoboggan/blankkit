@@ -37,7 +37,7 @@
            <enum>QTabWidget::Rounded</enum>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>2</number>
           </property>
           <property name="tabsClosable">
            <bool>false</bool>
@@ -111,7 +111,7 @@
               <widget class="QTreeWidget" name="treeWidgetPlayersList">
                <property name="maximumSize">
                 <size>
-                 <width>191</width>
+                 <width>200</width>
                  <height>16777215</height>
                 </size>
                </property>
@@ -164,7 +164,7 @@
               <widget class="QTreeWidget" name="treeWidgetPluginList">
                <property name="maximumSize">
                 <size>
-                 <width>191</width>
+                 <width>200</width>
                  <height>16777215</height>
                 </size>
                </property>
@@ -215,17 +215,14 @@
            <attribute name="title">
             <string>Console</string>
            </attribute>
-           <layout class="QHBoxLayout" name="horizontalLayout_6">
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_5">
-              <property name="spacing">
-               <number>7</number>
+             <widget class="QSplitter" name="splitter_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
               </property>
-              <item>
+              <widget class="QWidget" name="">
                <layout class="QVBoxLayout" name="verticalLayout_2">
-                <property name="spacing">
-                 <number>7</number>
-                </property>
                 <item>
                  <widget class="QTreeWidget" name="treeWidgetConsole">
                   <property name="focusPolicy">
@@ -266,80 +263,42 @@
                  <widget class="QLineEdit" name="lineEditConsole"/>
                 </item>
                </layout>
-              </item>
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_4">
-                <property name="spacing">
-                 <number>7</number>
+              </widget>
+              <widget class="QTreeWidget" name="treeWidgetConsoleList">
+               <property name="maximumSize">
+                <size>
+                 <width>200</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Sunken</enum>
+               </property>
+               <property name="verticalScrollMode">
+                <enum>QAbstractItemView::ScrollPerPixel</enum>
+               </property>
+               <property name="rootIsDecorated">
+                <bool>false</bool>
+               </property>
+               <property name="itemsExpandable">
+                <bool>false</bool>
+               </property>
+               <property name="expandsOnDoubleClick">
+                <bool>false</bool>
+               </property>
+               <attribute name="headerVisible">
+                <bool>false</bool>
+               </attribute>
+               <column>
+                <property name="text">
+                 <string notr="true">1</string>
                 </property>
-                <item>
-                 <widget class="QTreeWidget" name="treeWidgetConsoleList">
-                  <property name="maximumSize">
-                   <size>
-                    <width>171</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="frameShape">
-                   <enum>QFrame::StyledPanel</enum>
-                  </property>
-                  <property name="frameShadow">
-                   <enum>QFrame::Sunken</enum>
-                  </property>
-                  <property name="verticalScrollMode">
-                   <enum>QAbstractItemView::ScrollPerPixel</enum>
-                  </property>
-                  <property name="rootIsDecorated">
-                   <bool>false</bool>
-                  </property>
-                  <property name="itemsExpandable">
-                   <bool>false</bool>
-                  </property>
-                  <property name="expandsOnDoubleClick">
-                   <bool>false</bool>
-                  </property>
-                  <attribute name="headerVisible">
-                   <bool>false</bool>
-                  </attribute>
-                  <column>
-                   <property name="text">
-                    <string notr="true">1</string>
-                   </property>
-                  </column>
-                 </widget>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_4">
-                  <property name="spacing">
-                   <number>92</number>
-                  </property>
-                  <item>
-                   <widget class="QToolButton" name="toolButtonAddConsole">
-                    <property name="text">
-                     <string>...</string>
-                    </property>
-                    <property name="icon">
-                     <iconset>
-                      <normaloff>../../../../Pictures/plus-icon.png</normaloff>../../../../Pictures/plus-icon.png</iconset>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QToolButton" name="toolButtonRemoveConsole">
-                    <property name="text">
-                     <string>...</string>
-                    </property>
-                    <property name="icon">
-                     <iconset>
-                      <normaloff>../../../../Pictures/delete-17.png</normaloff>../../../../Pictures/delete-17.png</iconset>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-               </layout>
-              </item>
-             </layout>
+               </column>
+              </widget>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -364,7 +323,7 @@
      <x>0</x>
      <y>0</y>
      <width>842</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
