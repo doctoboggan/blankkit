@@ -6,59 +6,115 @@ from Server import Server
 from PyQt4 import QtCore, QtGui
 from interface import Ui_MainWindow
 
+
+#This class starts a thread and runs the function passed into it
+class GenericThread(QtCore.QThread):
+  def __init__(self, function, *args, **kwargs):
+    QtCore.QThread.__init__(self)
+    self.function = function
+    self.args = args
+    self.kwargs = kwargs
+
+  def __del__(self):
+    self.wait()
+
+  def run(self):
+    if self.args and self.kwargs:
+      self.function(*self.args,**self.kwargs)
+    elif self.args and not self.kwargs:
+      self.function(*self.args)
+    elif not self.args and self.kwargs:
+      self.function(**self.kwargs)
+    else:
+      self.function()
+    return
+
+
 class MyServer(QtGui.QMainWindow):
   
   def __init__(self, parent=None):
-    #Instance variables
-    self.chatLines = []
-    self.consoleLines = []
-    self.lastServerLine = 'first run'
-    self.onlineDict = {}
-    self.pluginsDict = {} 
     
-    #Initialize a QTimer to run background updates (online players, status, new chat messages, etc)
-    self.repeatingTimer = QtCore.QTimer()
-    self.singleTimer = QtCore.QTimer() #Not used...
-    
+    #Instantiate a minecraft server object
     self.s=Server()
+
+    #The usual
     QtGui.QWidget.__init__(self, parent)
     self.ui = Ui_MainWindow()
     self.ui.setupUi(self)
     self.initUI()
-    
-    self.startRepeatingTimer()
-    self.findPlugins() #Find the currently installed plugins by searching the plugin folder
+
+    #Instance variables
+    self.chatLines = []
+    self.consoleLines = []
+    self.onlineDict = {}
+    self.pluginsDict = {} 
+
+    #Initialize a QTimer to run and connect it to ticToc
+    self.repeatingTimer = QtCore.QTimer()
+    self.repeatingTimer.start(1000)      
+    self.connect(self.repeatingTimer, QtCore.SIGNAL('timeout()'), self.ticToc)
+
+    #Instantiate a qThreadWatcher() to monitor server.log for changes and connect its signal
+    #to newLineDetected
+    self.fileWatcher = QtCore.QFileSystemWatcher(self)
+    self.fileWatcher.addPath(os.path.join(self.s.bukkitDir, 'server.log'))
+    self.connect(self.fileWatcher, QtCore.SIGNAL('fileChanged(QString)'), self.newLineDetected)
+
+    #Find the currently installed plugins by searching the plugin folder
+    self.findPlugins()
     
     #Set the start/stop button text
     if self.s.status():
       self.ui.pushButtonStopStart.setText('Stop Server')
     else:
       self.ui.pushButtonStopStart.setText('Start Server')
-    
+
+    #On app boot, read til the last time the server was started
+    self.lastServerLine = ' [INFO] Stopping server'
+    self.newLineDetected()
+
+
   def initUI(self):
+    #Connect the UI buttons
     self.connect(self.ui.pushButtonStopStart, QtCore.SIGNAL('clicked()'), self.stopStartClicked)
     self.connect(self.ui.lineEditMessage, QtCore.SIGNAL('returnPressed()'), self.sendChat)
     self.connect(self.ui.lineEditConsole, QtCore.SIGNAL('returnPressed()'), self.sendConsole)
     self.connect(self.ui.treeWidgetPluginList, QtCore.SIGNAL('itemSelectionChanged()'), self.pluginNameClicked)
-    
-    #Connect the timer
-    self.connect(self.repeatingTimer, QtCore.SIGNAL('timeout()'), self.ticToc)
-
 
 #####################
 #GUI control methods
 #####################
 
   #Start or stop the server
-  def stopStartClicked(self):
+  def handleStopStart(self):
     if self.s.status():
       self.s.stop()
-      self.updateStatusBar()
-      self.ui.pushButtonStopStart.setText('Start Server')
+      setName = 'Start'
     else:
       self.s.start()
-      self.updateStatusBar()
-      self.ui.pushButtonStopStart.setText('Stop Server')  
+      setName = 'Stop'
+    self.emit(QtCore.SIGNAL('stopStartDone(QString)'), setName)
+
+  def stopStartDone(self, setName):
+    self.ui.pushButtonStopStart.setEnabled(True)
+    self.ui.pushButtonStopStart.setText(setName + ' Server')
+    self.updateStatusBar()
+    
+
+  def stopStartClicked(self):
+    self.ui.pushButtonStopStart.setEnabled(False)
+    self.ui.statusbar.showMessage('Trying...')
+    stopStartThread = GenericThread(self.handleStopStart)
+    self.disconnect( self, QtCore.SIGNAL("stopStartDone(QString)"), self.stopStartDone )
+    self.connect( self, QtCore.SIGNAL("stopStartDone(QString)"), self.stopStartDone )
+    stopStartThread.start()
+
+  def updateStatusBar(self):
+    if self.s.status():
+      line = 'SERVER IS ON - Players Online: ' + str(len(self.onlineDict))
+    else:
+      line = 'SERVER IS OFF'
+    self.ui.statusbar.showMessage(line)
 
   def sendChat(self):
     message = str(self.ui.lineEditMessage.text())
@@ -121,9 +177,10 @@ class MyServer(QtGui.QMainWindow):
 
       	
 #####################
-#Other methodsprint
+#Other methods
 #####################
 
+  #This function finds all the plugins in the plugins folder and stores them in a dict
   def findPlugins(self):
     bukkitDir = os.path.split(self.s.startupScript)[0]
     pluginsDir = os.path.join(bukkitDir, 'plugins')
@@ -133,85 +190,64 @@ class MyServer(QtGui.QMainWindow):
       if pluginName not in self.pluginsDict:
         self.pluginsDict[pluginName] = []
     self.updatePluginsList()
-    
 
-  def getNewServerLines(self):
-    if self.lastServerLine == 'first run': #If we are first starting up the app, read back to the last reboot
-      newServerLines = self.s.consoleReadTo(' [INFO] Stopping server')
-    else:
-      newServerLines = self.s.consoleReadTo(self.lastServerLine)
-    if len(newServerLines) > 0:
-      self.lastServerLine = newServerLines[-1]
-    return newServerLines
-    
-  def routeServerLines(self):
-  
-    #Set up variables to monitor if we found any of the relevent lines. We do this so we dont have
-    #to call their respective functions of nothing was found
-    chatLinesWereFound = False
-    playersChanged = False
-    
-    newServerLines = self.getNewServerLines()
+  #If the server.log file is changed, a signal connected to this function will be emitted
+  def newLineDetected(self):
+    thread = GenericThread(self.getNewLines, self.lastServerLine)
+    self.disconnect(self, QtCore.SIGNAL('stringFound'), self.routeServerLines)
+    self.connect(self, QtCore.SIGNAL('stringFound'), self.routeServerLines)
+    thread.start()
+
+  #This function is spawned in the thread to get new lines. It is also called at app spawn
+  def getNewLines(self, lastLine):
+    newServerLines = self.s.consoleReadTo(lastLine)
+    self.emit(QtCore.SIGNAL('stringFound'), newServerLines)
+
+  #This function takes a list of new server lines and routes them to where they need to go.
+  def routeServerLines(self, newServerLines):
     chatLines = []
-    if len(newServerLines) > 0: #Don't waste your time if no new lines are found
-      for line in newServerLines:
-        matchChat = re.search(r'<\w+>', line)
-        matchChat2 = re.search(r'\[CONSOLE\]', line)
-        matchLoggedIn = re.search(r'(\d+\-\d+\-\d+ \d+:\d+:\d+) \[INFO\] (\w+) \[/(\d+\.\d+\.\d+\.\d+:\d+)\] logged in with entity id (\d+) at', line)
-        matchLoggedOut = re.search(r'\] (\w+) lost connection: disconnect.quitting', line)
-        matchLoggedOut2 = re.search(r'\] (\w+) lost connection: disconnect.endOfStream', line)
-        matchPlugin = re.search(r'\d+\-\d+\-\d+ \d+:\d+:\d+ \[INFO\] \[(\w+)\]', line)
- 
-        if matchChat or matchChat2:
-          chatLinesWereFound = True
-          chatLines.append(line)
-        
-        if matchLoggedIn:
-          playersChanged = True
-          time = matchLoggedIn.group(1)
-          name = matchLoggedIn.group(2)
-          ip = matchLoggedIn.group(3)
-          ID = matchLoggedIn.group(4)
-          self.onlineDict[name] = {'Logged In':time[11:],
-                                   'IP':ip,
-                                   'ID':ID}
-        
-        if matchLoggedOut or matchLoggedOut2:
-          playersChanged = True
-          try:
-            name = matchLoggedOut.group(1)
-          except AttributeError:
-            name = matchLoggedOut2.group(1)
-          if name in self.onlineDict:
-            del self.onlineDict[name]
-            
-        if matchPlugin:
-          pluginName = matchPlugin.group(1)
-          if pluginName in self.pluginsDict:
-            self.pluginsDict[pluginName].append(line)
-            
-            
-      self.updateConsoleDisplay(newServerLines)
-      if chatLinesWereFound: self.updateChatDisplay(chatLines)
-      if playersChanged: self.updatePlayersDisplay()
-    return None
-   
+    self.lastServerLine = newServerLines[-1] #Store the last line so we know where to read to later
+    for line in newServerLines:
+      matchChat = re.search(r'<\w+>', line)
+      matchChat2 = re.search(r'\[CONSOLE\]', line)
+      matchLoggedIn = re.search(r'(\d+\-\d+\-\d+ \d+:\d+:\d+) \[INFO\] (\w+) \[/(\d+\.\d+\.\d+\.\d+:\d+)\] logged in with entity id (\d+) at', line)
+      matchLoggedOut = re.search(r'\] (\w+) lost connection: disconnect.quitting', line)
+      matchLoggedOut2 = re.search(r'\] (\w+) lost connection: disconnect.endOfStream', line)
+      matchPlugin = re.search(r'\d+\-\d+\-\d+ \d+:\d+:\d+ \[INFO\] \[(\w+)\]', line)
+
+      if matchChat or matchChat2:
+        chatLines.append(line)
+      
+      if matchLoggedIn:
+        time = matchLoggedIn.group(1)
+        name = matchLoggedIn.group(2)
+        ip = matchLoggedIn.group(3)
+        ID = matchLoggedIn.group(4)
+        self.onlineDict[name] = {'Logged In':time[11:],
+                                 'IP':ip,
+                                 'ID':ID}
+      
+      if matchLoggedOut or matchLoggedOut2:
+        try:
+          name = matchLoggedOut.group(1)
+        except AttributeError:
+          name = matchLoggedOut2.group(1)
+        if name in self.onlineDict:
+          del self.onlineDict[name]
+          
+      if matchPlugin:
+        pluginName = matchPlugin.group(1)
+        if pluginName in self.pluginsDict:
+          self.pluginsDict[pluginName].append(line)
+          
+          
+    self.updateConsoleDisplay(newServerLines)
+    self.updateChatDisplay(chatLines)
+    self.updatePlayersDisplay()
+
   def ticToc(self):
     self.updateStatusBar()
-    self.routeServerLines()
-  
-  def startRepeatingTimer(self):
-    self.repeatingTimer.start(1000)
-  
-  def updateStatusBar(self):
-    if self.s.status():
-      line = 'SERVER IS ON - Players Online: ' + str(len(self.onlineDict))
-    else:
-      line = 'SERVER IS OFF'
-    self.ui.statusbar.showMessage(line)
-      
-    
-    
+
 if __name__ == "__main__":
   app = QtGui.QApplication(sys.argv)
   myapp = MyServer()
