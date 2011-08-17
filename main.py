@@ -35,7 +35,7 @@ class MyServer(QtGui.QMainWindow):
   def __init__(self, parent=None):
     
     #Instantiate a minecraft server object
-    self.s=Server()
+    self.s=Server(remote=True)
 
     #The usual
     QtGui.QWidget.__init__(self, parent)

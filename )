@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-import pexpect, pxssh, os, re, time, utils
+import pexpect, pxssh, os, re, time
 
 class Server:
   """
@@ -25,30 +25,22 @@ class Server:
 
 
   #Initialize the object
-  def __init__(self, user='sa', host='jj.ax.lt', pswd='LOL', remote=False):
+  def __init__(self, user='sa', host='jj.ax.lt', pswd='1q2wedrf', remote=False):
     #Instance variables
     self.startupScript = '/Users/jack/.mcserver/start.sh'
     #self.startupScript = '/home/sa/bukkit/minecraft.sh'
     self.bukkitDir = os.path.split(self.startupScript)[0]
 
     self.remote=remote
-    self.user=user
-    self.host=host
-    self.pswd=pswd
 
     if remote:
-      self.remoteStatusPX = pxssh.pxssh()
+      self.remoteStatusPX = pxssh.psxxh()
       self.remoteStatusPX.login(host, user, pswd)
     
     #Check the server status. If it is already running, resume it
     if self.status():
       print 'Resuming already running server.'
-      if self.remote:
-        self.mcServer = pxssh.pxssh()
-        self.mcServer.login(self.host, self.user, self.pswd)
-        self.mcServer.sendline('screen -rd mc')
-      else:
-        self.mcServer = pexpect.spawn('screen -rd mc')
+      self.mcServer = pexpect.spawn('screen -rd mc')
     else:
       print 'Server not running. Start with myServer.start()'
 
@@ -57,12 +49,7 @@ class Server:
   def start(self):
     print 'Starting server... ',
     if not self.status():
-      if self.remote:
-        self.mcServer = pxssh.pxssh()
-        self.mcServer.login(self.host, self.user, self.pswd)
-        self.mcServer.sendline('screen -S mc ' + self.startupScript)
-      else:
-        self.mcServer = pexpect.spawn('screen -S mc ' + self.startupScript, timeout=120)
+      self.mcServer = pexpect.spawn('screen -S mc ' + self.startupScript, timeout=120)
       self.mcServer.expect('\[INFO\] Done')
       self.startupLines = self.mcServer.before.split('\n')
       print 'Started'
@@ -130,10 +117,7 @@ class Server:
   def console(self, n=10, numOfLines=0):
     bukkitDir = os.path.split(self.startupScript)[0]
     serverLogPath = os.path.join(bukkitDir, 'server.log')
-    if self.remote:
-      logFile = utils.openRemote(self.user+'@'+self.host+':/home/sa/bukkit/server.log', self.pswd)
-    else:
-      logFile = open(serverLogPath, 'r')
+    logFile = open(serverLogPath, 'r')
     
     bytesBack=0
     newLinePos = []
@@ -146,7 +130,6 @@ class Server:
       except IOError:
         bytesBack -= 1
         break
-      print logFile.read(1)
       if logFile.read(1) == '\n':
         newLinePos.append(bytesBack) #Store the position of each newline character
     logFile.seek(0-bytesBack, os.SEEK_END)
@@ -180,10 +163,7 @@ class Server:
   def consoleReadTo(self, readToLine):
     bukkitDir = os.path.split(self.startupScript)[0]
     serverLogPath = os.path.join(bukkitDir, 'server.log')
-    if self.remote:
-      logFile = utils.openRemote(self.user+'@'+self.host+':/home/sa/bukkit/server.log', self.pswd)
-    else:
-      logFile = open(serverLogPath, 'r')
+    logFile = open(serverLogPath, 'r')
          
     bytesBack=0
     newLinePos = []
