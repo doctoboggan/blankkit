@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-import pexpect, pxssh, os, re, time, utils
+import pexpect, pxssh, os, re, time, utils, paramiko
 
 class Server:
   """
@@ -25,7 +25,7 @@ class Server:
 
 
   #Initialize the object
-  def __init__(self, user='sa', host='jj.ax.lt', pswd='LOL', remote=False):
+  def __init__(self, user='sa', host='jj.ax.lt', pswd='1q2wedrf', remote=False):
     #Instance variables
     self.startupScript = '/Users/jack/.mcserver/start.sh'
     #self.startupScript = '/home/sa/bukkit/minecraft.sh'
@@ -131,7 +131,11 @@ class Server:
     bukkitDir = os.path.split(self.startupScript)[0]
     serverLogPath = os.path.join(bukkitDir, 'server.log')
     if self.remote:
-      logFile = utils.openRemote(self.user+'@'+self.host+':/home/sa/bukkit/server.log', self.pswd)
+      sshClient = paramiko.SSHClient()
+      sshClient.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+      sshClient.connect(self.host, username=self.user, password=self.pswd)
+      sftpClient = sshClient.open_sftp()
+      logFile = sftpClient.open(serverLogPath)
     else:
       logFile = open(serverLogPath, 'r')
     
@@ -178,10 +182,13 @@ class Server:
   #This method is very similar to the console method above, except it searches back until it reaches
   #a specific line specified by readToLine
   def consoleReadTo(self, readToLine):
-    bukkitDir = os.path.split(self.startupScript)[0]
-    serverLogPath = os.path.join(bukkitDir, 'server.log')
+    serverLogPath = os.path.join(self.bukkitDir, 'server.log')
     if self.remote:
-      logFile = utils.openRemote(self.user+'@'+self.host+':/home/sa/bukkit/server.log', self.pswd)
+      sshClient = paramiko.SSHClient()
+      sshClient.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+      sshClient.connect(self.host, username=self.user, password=self.pswd)
+      sftpClient = sshClient.open_sftp()
+      logFile = sftpClient.open('/home/sa/bukkit/server.log')
     else:
       logFile = open(serverLogPath, 'r')
          
@@ -196,6 +203,7 @@ class Server:
         newLinePos.append(bytesBack) #Store the position of each newline character
         if len(newLinePos)>1:
           currentLine = logFile.read((newLinePos[-1]-newLinePos[-2])-1)
+          print currentLine
     logFileDump = logFile.read(newLinePos[-2])
     logFileLines = logFileDump.split('\n')
     logFile.close()
