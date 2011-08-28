@@ -34,8 +34,11 @@ class MyServer(QtGui.QMainWindow):
   
   def __init__(self, parent=None):
     
+    #Are we local or remote?
+    self.remote = True
+
     #Instantiate a minecraft server object
-    self.s=Server(remote=True)
+    self.s=Server(remote=self.remote)
 
     #The usual
     QtGui.QWidget.__init__(self, parent)
@@ -54,24 +57,31 @@ class MyServer(QtGui.QMainWindow):
     self.repeatingTimer.start(1000)      
     self.connect(self.repeatingTimer, QtCore.SIGNAL('timeout()'), self.ticToc)
 
-    #Instantiate a qThreadWatcher() to monitor server.log for changes and connect its signal
-    #to newLineDetected
-    self.fileWatcher = QtCore.QFileSystemWatcher(self)
-    self.fileWatcher.addPath(os.path.join(self.s.bukkitDir, 'server.log'))
-    self.connect(self.fileWatcher, QtCore.SIGNAL('fileChanged(QString)'), self.newLineDetected)
-
-    #Find the currently installed plugins by searching the plugin folder
-    self.findPlugins()
-    
     #Set the start/stop button text
     if self.s.status():
       self.ui.pushButtonStopStart.setText('Stop Server')
     else:
       self.ui.pushButtonStopStart.setText('Start Server')
 
-    #On app boot, read til the last time the server was started
-    self.lastServerLine = ' [INFO] Stopping server'
-    self.newLineDetected()
+    if self.remote:
+      print 'spawning remote thread'
+      self.connect(self, QtCore.SIGNAL('newRemoteLines'), self.routeServerLines)
+      thread = GenericThread(self.remoteConn)
+      thread.start()
+      print 'thread started'
+    else:
+      #Instantiate a qThreadWatcher() to monitor server.log for changes and connect its signal
+      #to newLineDetected.
+      self.fileWatcher = QtCore.QFileSystemWatcher(self)
+      self.fileWatcher.addPath(os.path.join(self.s.bukkitDir, 'server.log'))
+      self.connect(self.fileWatcher, QtCore.SIGNAL('fileChanged(QString)'), self.newLineDetected)
+
+      #Find the currently installed plugins by searching the plugin folder
+      self.findPlugins()
+
+      #On app boot, read til the last time the server was started
+      self.lastServerLine = ' [INFO] Stopping server'
+      self.newLineDetected()
 
 
   def initUI(self):
@@ -198,7 +208,7 @@ class MyServer(QtGui.QMainWindow):
     self.connect(self, QtCore.SIGNAL('stringFound'), self.routeServerLines)
     thread.start()
 
-  #This function is spawned in the thread to get new lines. It is also called at app spawn
+  #This function is spawned in the thread to get new lines.
   def getNewLines(self, lastLine):
     newServerLines = self.s.consoleReadTo(lastLine)
     self.emit(QtCore.SIGNAL('stringFound'), newServerLines)
@@ -247,6 +257,25 @@ class MyServer(QtGui.QMainWindow):
 
   def ticToc(self):
     self.updateStatusBar()
+
+  def remoteConn(self, HOST='jj.ax.lt', PORT=25562):
+    import socket
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((HOST, PORT))
+    newLinesRaw = ''
+    while 1:
+      newData = s.recv(1024)
+      if newData:
+        print '<rawData>\n', newData, '\n</newData>\n'
+        newLinesRaw += newData
+      else:
+        print 'newLinesRaw:', newLinesRaw
+        if newLinesRaw:
+          newLines = newLinesRaw.split('\n')
+          print '\nNew Lines:\n', newLines
+          #self.emit(QtCore.SIGNAL('newRemoteLines'), newLines)
+          newLinesRaw=''
+    s.close()
 
 if __name__ == "__main__":
   app = QtGui.QApplication(sys.argv)
