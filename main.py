@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-import sys, re, os
+import sys, re, os, time
 import utils
 from Server import Server
 from PyQt4 import QtCore, QtGui
@@ -52,12 +52,7 @@ class MyServer(QtGui.QMainWindow):
     self.onlineDict = {}
     self.pluginsDict = {} 
 
-    #Initialize a QTimer to run and connect it to ticToc
-    self.repeatingTimer = QtCore.QTimer()
-    self.repeatingTimer.start(1000)      
-    self.connect(self.repeatingTimer, QtCore.SIGNAL('timeout()'), self.ticToc)
-
-    #Set the start/stop button text
+       #Set the start/stop button text
     if self.s.status():
       self.ui.pushButtonStopStart.setText('Stop Server')
     else:
@@ -66,8 +61,9 @@ class MyServer(QtGui.QMainWindow):
     if self.remote:
       print 'spawning remote thread'
       self.connect(self, QtCore.SIGNAL('newRemoteLines'), self.routeServerLines)
-      thread = GenericThread(self.remoteConn)
-      thread.start()
+      self.connect(self, QtCore.SIGNAL('pluginsDict'), self.remotePlugins)
+      self.thread = GenericThread(self.remoteConn)
+      self.thread.start()
       print 'thread started'
     else:
       #Instantiate a qThreadWatcher() to monitor server.log for changes and connect its signal
@@ -82,6 +78,12 @@ class MyServer(QtGui.QMainWindow):
       #On app boot, read til the last time the server was started
       self.lastServerLine = ' [INFO] Stopping server'
       self.newLineDetected()
+     
+     #Initialize a QTimer to run and connect it to ticToc
+      self.repeatingTimer = QtCore.QTimer()
+      self.repeatingTimer.start(1000)      
+      self.connect(self.repeatingTimer, QtCore.SIGNAL('timeout()'), self.ticToc)
+
 
 
   def initUI(self):
@@ -105,19 +107,20 @@ class MyServer(QtGui.QMainWindow):
       setName = 'Stop'
     self.emit(QtCore.SIGNAL('stopStartDone(QString)'), setName)
 
+  #This method is called when the stopStart thread (handleStopStart()) has finished
   def stopStartDone(self, setName):
     self.ui.pushButtonStopStart.setEnabled(True)
     self.ui.pushButtonStopStart.setText(setName + ' Server')
     self.updateStatusBar()
     
-
+  #This method spawns a thread to stop or start the server
   def stopStartClicked(self):
     self.ui.pushButtonStopStart.setEnabled(False)
     self.ui.statusbar.showMessage('Trying...')
-    stopStartThread = GenericThread(self.handleStopStart)
+    self.stopStartThread = GenericThread(self.handleStopStart)
     self.disconnect( self, QtCore.SIGNAL("stopStartDone(QString)"), self.stopStartDone )
     self.connect( self, QtCore.SIGNAL("stopStartDone(QString)"), self.stopStartDone )
-    stopStartThread.start()
+    self.stopStartThread.start()
 
   def updateStatusBar(self):
     if self.s.status():
@@ -131,7 +134,8 @@ class MyServer(QtGui.QMainWindow):
     self.ui.lineEditMessage.clear()   
     if message != '':
       self.s.message(message)
-    self. updateChatDisplay([])
+      print message
+    self.updateChatDisplay([])
           
   def updateChatDisplay(self, chatLines): 
     for line in chatLines:
@@ -148,8 +152,9 @@ class MyServer(QtGui.QMainWindow):
     message = str(self.ui.lineEditConsole.text())
     self.ui.lineEditConsole.clear()   
     if message != '':
+      print message
       self.s.command(message)
-    self. updateConsoleDisplay([])
+    self.updateConsoleDisplay([])
           
   def updateConsoleDisplay(self, consoleLines): 
     for line in consoleLines:
@@ -180,9 +185,7 @@ class MyServer(QtGui.QMainWindow):
       
   def pluginNameClicked(self):
     pluginName = str(self.ui.treeWidgetPluginList.currentItem().text(0))
-    lines = ''
-    for line in self.pluginsDict[pluginName]:
-      lines = lines + line + '\n'
+    lines = '\n'.join(self.pluginsDict[pluginName])
     self.ui.textBrowserPlugin.setText(lines)
 
       	
@@ -259,23 +262,37 @@ class MyServer(QtGui.QMainWindow):
     self.updateStatusBar()
 
   def remoteConn(self, HOST='jj.ax.lt', PORT=25562):
-    import socket
+    import socket, time
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((HOST, PORT))
-    newLinesRaw = ''
+    
+    pluginsListRaw = ''
+    while '0o9i' not in pluginsListRaw:
+      newData = s.recv(2048)
+      pluginsListRaw += newData
+    pluginsList = pluginsListRaw.split('0o9i')[0].split('\n')
+    pluginsDict = {}
+    for pluginName in pluginsList:
+      pluginsDict[pluginName] = []
+    self.emit(QtCore.SIGNAL('pluginsDict'), pluginsDict)
+    
+    newLinesRaw = pluginsListRaw.split('0o9i')[1]
     while 1:
       newData = s.recv(1024)
-      if newData:
-        print '<rawData>\n', newData, '\n</newData>\n'
-        newLinesRaw += newData
+      newLinesRaw += newData
+      if newLinesRaw[-6:] == ',.4r5t': #This is sent end the end of each transfer
+        newLines = newLinesRaw.split('\n')[:-1]
+        print '\nNew Lines:\n', newLines
+        self.emit(QtCore.SIGNAL('newRemoteLines'), newLines)
+        newLinesRaw=''
       else:
-        print 'newLinesRaw:', newLinesRaw
-        if newLinesRaw:
-          newLines = newLinesRaw.split('\n')
-          print '\nNew Lines:\n', newLines
-          #self.emit(QtCore.SIGNAL('newRemoteLines'), newLines)
-          newLinesRaw=''
+        time.sleep(.1)
+        self.updateStatusBar() #This isnt working for some reason. Maybe cause its in a thread
     s.close()
+    
+  def remotePlugins(self, pluginsDict):
+    self.pluginsDict = pluginsDict
+    self.updatePluginsList()
 
 if __name__ == "__main__":
   app = QtGui.QApplication(sys.argv)

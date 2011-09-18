@@ -25,10 +25,10 @@ class Server:
 
 
   #Initialize the object
-  def __init__(self, user='sa', host='jj.ax.lt', pswd='lol', remote=False):
+  def __init__(self, user='sa', host='jj.ax.lt', pswd='1q2wedrf', remote=False):
     #Instance variables
-    self.startupScript = '/Users/jack/.mcserver/start.sh'
-    #self.startupScript = '/home/sa/bukkit/minecraft.sh'
+    #self.startupScript = '/Users/jack/.mcserver/start.sh'
+    self.startupScript = '/home/sa/bukkit/minecraft.sh'
     self.bukkitDir = os.path.split(self.startupScript)[0]
 
     self.remote=remote
@@ -61,9 +61,10 @@ class Server:
         self.mcServer = pxssh.pxssh()
         self.mcServer.login(self.host, self.user, self.pswd)
         self.mcServer.sendline('screen -S mc ' + self.startupScript)
+        self.mcServer.expect('\[INFO\] Done')
       else:
         self.mcServer = pexpect.spawn('screen -S mc ' + self.startupScript, timeout=120)
-      self.mcServer.expect('\[INFO\] Done')
+        self.mcServer.expect('\[INFO\] Done')
       self.startupLines = self.mcServer.before.split('\n')
       print 'Started'
     else:
@@ -100,8 +101,7 @@ class Server:
   def command(self, command, sleep=0.08):
     if self.status():
       self.mcServer.sendline(command)
-      time.sleep(sleep)
-      return self.console(1)[0]
+      print command
     else:
       print 'There is no server running, start with myServer.start()'
     
