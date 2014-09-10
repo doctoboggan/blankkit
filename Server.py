@@ -25,7 +25,7 @@ class Server:
 
 
   #Initialize the object
-  def __init__(self, user='sa', host='jj.ax.lt', pswd='1q2wedrf', remote=False):
+  def __init__(self, user='sa', host='jj.ax.lt', pswd='', remote=False):
     #Instance variables
     #self.startupScript = '/Users/jack/.mcserver/start.sh'
     self.startupScript = '/home/sa/bukkit/minecraft.sh'
